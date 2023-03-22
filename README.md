@@ -77,6 +77,8 @@ ___
 
 ## Output
 
+The output of the smart scraper is input to a non-ml powered dumb scraper. It will not be part of your task to implement it, but just to describe how it works
+
 Note that in practice, the paths list is going to be much longer. I am but a human, and do not have time to scrape every link. You can think of each path string as a specific format and location that the navigation link could be in. Lots of webpages can have different formats depending on their type - the guardian is a good example of this. Note the `*` in the path denoting that this path matches any number.
 
 [https://www.theguardian.com/au](https://www.theguardian.com/au)
@@ -139,6 +141,7 @@ Note that in practice, the paths list is going to be much longer. I am but a hum
 
 The attatched diagram illustrates the state transitions, and how they relate to the actions and urls that are navigated to.
 
+# Dumb Scraper Example
 
 If you would like a less technical way of communicating how the scrapers work, watch the week 3 meeting recording. Heere is some python-esque pseudocode that describes the operation of a dumb scraper. Note the addition of the action type and criterion to my explanation from the meeting.
 
@@ -159,17 +162,17 @@ scraped_objects = {
 
 # This is recursive because its easier to write - this is basically a depth-first search. In practice its a very idiotic implementation (wont someone think of the memory usage!?!), but I hope it conveys what needs to be done.
 
-function scrapePage(curr_page, curr_state):	
+def scrapePage(curr_page, curr_state):	
 
 	# On this page, extract all the fields from the paths 
-	for each key, value in DUMB_SCRAPER_INPUT[curr_state]['LINKS']:
+	for key, value in DUMB_SCRAPER_INPUT[curr_state]['LINKS']:
 		object_name = key # Eg NewsArticle
 		object_fields = value # Eg {title: [...], authors: [...]}
 		extracted_data_object = extract_text_from_paths(curr_page, object_fields)
 		scraped_objects[key].append(extracted_data_object)
 
 	# On this page, find all the new pages that can be navigated to from this one
-	for each key, value in DUMB_SCRAPER_INPUT[curr_state]['LINKS']:	
+	for key, value in DUMB_SCRAPER_INPUT[curr_state]['LINKS']:	
 		next_state = key # eg 'state1' 
 		state_info = value # eg SMART_SCRAPER_OUTPUT[state]['LINKS']['state1']
 
@@ -177,10 +180,10 @@ function scrapePage(curr_page, curr_state):
 	    criterion = state_info['criteron']
 	
 	    # Go to all paths 
-		for each path_pattern in state_info['paths']:
+		for path_pattern in state_info['paths']:
 			# Get a list of all html elements which satisfy this path
 			all_potential_link_element_list = current_page.find_all_pattern_matches(path_pattern)
-			for each potential_link in all_potential_link_elements_list:
+			for potential_link in all_potential_link_elements_list:
 				 # Assume the current_page variable stays the same, but the result of the action creates a new page with that action performed. The new page could have the same url oas the old page.
 				action = state_info['action'] # eg 'click'
 				criterion = start_info['criterion'] # Eg 1: curr_page.url != new_page.url. Eg 2: curr_page.html.length < new_page.html.length
