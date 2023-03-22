@@ -139,7 +139,8 @@ Note that in practice, the paths list is going to be much longer. I am but a hum
 ```
 
 
-The attatched diagram illustrates the state transitions, and how they relate to the actions and urls that are navigated to.
+The diagram below illustrates the state transitions, and how they relate to the actions and urls that are navigated to.
+![image](https://user-images.githubusercontent.com/128586980/226855497-988f9e34-d014-40e0-ae71-8b16c8e3909c.png)
 
 # Dumb Scraper Example
 
