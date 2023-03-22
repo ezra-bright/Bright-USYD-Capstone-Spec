@@ -57,7 +57,7 @@ ___
 The input consists of an entrypoint webpage, and a set of objects with fields:
 
 Entrypoint URL: [https://www.theguardian.com/au](https://www.theguardian.com/au)
-```json
+```js
 {
 	NewsArticle: {
 		title: 'the news article title',
@@ -81,7 +81,7 @@ Note that in practice, the paths list is going to be much longer. I am but a hum
 
 [https://www.theguardian.com/au](https://www.theguardian.com/au)
 
-```json
+```js
 {
 	root: { // [https://www.theguardian.com/au](https://www.theguardian.com/au)
 		LINKS: {
