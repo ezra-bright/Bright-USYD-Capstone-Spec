@@ -178,9 +178,9 @@ def scrapePage(curr_page, curr_state):
 		state_info = value # eg SMART_SCRAPER_OUTPUT[state]['LINKS']['state1']
 
 		# This is the data representation for the criteron in order to tell whether a link is what we are looking for.
-	    criterion = state_info['criteron']
-	
-	    # Go to all paths 
+		criterion = state_info['criteron']
+
+		# Go to all paths 
 		for path_pattern in state_info['paths']:
 			# Get a list of all html elements which satisfy this path
 			all_potential_link_element_list = current_page.find_all_pattern_matches(path_pattern)
